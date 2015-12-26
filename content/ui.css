@@ -1,0 +1,241 @@
+button, #btn_open
+{
+    background: transparent;
+    border: 0px;
+    height: 40px;
+    width: 40px;
+    margin-top: 7px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: #323639;
+}
+button:disabled
+{
+    opacity: 0.5;
+}
+button:hover, #btn_open:hover
+{
+    background-color: #323639;
+	border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+}
+button:focus
+{
+    outline: -webkit-focus-ring-color auto 0px;
+}
+#btn_css_output
+{
+    border-radius: 20px;
+    background-color: #eeeeee;
+    font-size: small;
+    font-family: 'Lato', Helvetica, Arial, sans-serif;
+    color:#34495e;
+    font-weight: 300;
+}
+#btn_open
+{
+	margin:0px;
+	display: inline-block;
+    background-image: url(img/open.png);
+}
+#btn_save
+{
+    background-image: url(img/save.png);
+}
+#btn_setting
+{
+    background-image: url(img/gear.png);
+}
+#btn_compile
+{
+    background-image: url(img/compile.png);
+}
+#btn_find
+{
+    background-image: url(img/find.png);
+}
+#btn_replace
+{
+    background-image: url(img/replace.png);
+}
+#btn_undo
+{
+    background-image: url(img/undo.png);
+}
+#btn_redo
+{
+    background-image: url(img/redo.png);
+}
+#btn_about
+{
+    background-image: url(img/about.png);
+}
+#btn_mac
+{
+    background-image: url(img/mac.png);
+}
+#btn_find_right
+{
+    background-image: url(img/find.png);
+    float: right;
+}
+#btn_replace_right
+{
+    background-image: url(img/replace.png);
+    float: right;
+}
+#btn_save_right
+{
+    background-image: url(img/export.png);
+    float: right;
+	margin-right:5px;
+}
+
+#btn_close_console
+{
+    height: 20px;
+    width: 20px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    background-image: url(img/eraser.png);  
+    border-radius: 10px;
+	background-color: #EEEEEE;
+}
+#btn_close_console:hover
+{
+    border-radius: 10px;
+}
+#console-area textarea
+{
+    height: 170px;
+    width: calc(100% - 10px);
+    resize: none;
+    border: none;
+    padding-top:5px;
+    font-family:Consolas;
+	background-color: #2C3134;
+	color: #fafafa;
+	font-size:medium;
+}
+#console-area textarea:focus
+{
+    outline:none;
+}
+#btn_close,#btn_close_about
+{
+	
+    height: 30px;
+    width: 30px;
+    background-image: url(img/close2.png);
+	background-color:transparent;
+}
+#btn_close:hover, #btn_close_about:hover
+{
+    border-radius: 15px;
+	background-color:#EEEEEE;
+	border-color: transparent;
+    box-shadow: 0 0 0px #9ecaed;
+}
+#btn_decrease
+{
+	border-radius:15px;
+    height: 30px;
+    width: 30px;
+    background-image: url(img/previous.png);
+	background-color:transparent;
+    
+}
+#btn_decrease:hover
+{
+    border-radius: 15px;
+	background-color:#EEEEEE;
+	border-color: transparent;
+    box-shadow: 0 0 0px #9ecaed;
+}
+#btn_increase
+{
+	border-radius:15px;
+    height: 30px;
+    width: 30px;
+    background-image: url(img/next.png);
+    background-color:transparent;
+}
+#btn_increase:hover
+{
+    border-radius: 15px;
+	background-color:#EEEEEE;
+	border-color: transparent;
+    box-shadow: 0 0 0px #9ecaed;
+}
+#btn_browse
+{
+    height: 30px;
+    width: 30px;
+    background-image: url(img/browse.png);
+    
+}
+#btn_browse:hover
+{
+    border-radius: 15px;
+}
+select
+{
+    padding-top: 3px;
+    padding-bottom: 3px;
+    width: 200px;
+    font-size: medium;
+    font-family: 'Lato', Helvetica, Arial, sans-serif;
+    color:#34495e;
+    font-weight: 300;
+}
+input
+{
+    width: 200px;
+    font-size: medium;
+    font-family: 'Lato', Helvetica, Arial, sans-serif;
+    color:#34495e;
+    font-weight: 300;
+}
+
+#setting-view input
+{
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+#btn_save_setting
+{
+	border-radius:4px;
+    float: right;
+    margin-right: 25px;
+    background-color: #3498db;
+    padding: 10px 39px;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    font-family:'Lato', Helvetica, Arial, sans-serif;
+    cursor: default;
+	transition:border .25s linear,color .25s linear,background-color .25s linear;
+}
+#btn_save_setting:hover
+{
+    background-color: #5dade2;
+}
+input[type=file] {
+	opacity:0;
+    background:transparent;
+    border: 0px;
+    width:30px;
+    height:30px;
+    background: white;
+    cursor: inherit;
+	float:left;
+}
+@-moz-document url-prefix() {
+	input[type=file]{
+		float:none;
+	}
+}

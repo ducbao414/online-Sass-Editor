@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Sass Editor</title>
+		<meta charset="UTF-8">
+		<meta name="description" content="An online Sass editor and compiler"/>
+		<meta property="og:title" content="Sass Editor.xyz"/>
+		<meta property="og:description" content="online Sass editor and compiler" />
+    <link href="content/layout.css" rel="stylesheet">
+    <link href="content/ui.css" rel="stylesheet">
+	<script>
+    var userDefaults = {
+        'style': 0,
+        'comments': false,
+        'indentedSyntax': false,
+        'theme': 'twilight',
+        'fontSize': 16
+    };
+	var testContent = "$font-stack:    Helvetica, sans-serif;\n$primary-color: #333;\n\nbody {\n  font: 100% $font-stack;\n  color: $primary-color;\n}";
+	var savedSCSS = '';
+	if(typeof(Storage) !== 'undefined')
+	{
+		if(localStorage.getItem('style') === null)
+		{
+			localStorage.setItem('style', 1);
+			localStorage.setItem('comments', false);
+			localStorage.setItem('indentedSyntax', false);
+			localStorage.setItem('theme', 'twilight');
+			localStorage.setItem('fontSize', 16);
+			localStorage.setItem('content',content);
+		}
+		userDefaults = {
+        'style': Number(localStorage.getItem('style')),
+        'comments': ('true' == localStorage.getItem('comments')),
+        'indentedSyntax': ('true' == localStorage.getItem('indentedSyntax')),
+        'theme': localStorage.getItem('theme'),
+        'fontSize': Number(localStorage.getItem('fontSize'))
+		};
+		savedSCSS = localStorage.getItem('savedSCSS');
+	}
+	
+</script>
+
+</head>
+
+<body oncontextmenu="return true;">
+
+	<div id="loading-view">
+		<h1>Initializing the awesome...</h1>
+	</div>
+    <div id="overlay">
+        <div id="setting-view">
+            <h1 style="left: 10px;top: 5px;display: inline">Setting</h1>
+            <button id="btn_close" title="Close" style="left: 480px;top:5px;"></button>
+            <div style="margin-top: 10px;">
+                <h2 style="left: 15px;top: 15px;display: inline">Treat source code as</h2>
+                <select style="left:180px;top:15px;" id="select_indentSyntax">
+                    <option value=0>SCSS</option>
+                    <option value=1>Sass</option>
+                </select>
+            </div>
+            <div style="margin-top: 15px;">
+                <h2 style="left: 15px;top: 15px;display: inline">Output style</h2>
+                <select style="left:235px;top:15px;" id="select_style">
+                    <option value=0>Nested</option>
+                    <option value=1>Expanded</option>
+                    <option value=2>Compact</option>
+                    <option value=3>Compressed</option>
+                </select>
+            </div>
+            <div style="margin-top: 15px;">
+                <h2 style="left: 15px;top: 15px;display: inline">Comments</h2>
+                <select style="left:247px;top:15px;" id="select_comments">
+                    <option value=0>No</option>
+                    <option value=1>Yes</option>
+                </select>
+            </div>
+            <div style="margin-top: 15px;">
+                <h2 style="left: 15px;top: 15px;display: inline">Editor theme</h2>
+                <select style="left:231px;top:15px;" id="select_theme">
+                    <option value="github">Github</option>
+                    <option value="chrome">Chrome</option>
+                    <option value="cobalt">Cobalt</option>
+                    <option value="dawn">Dawn</option>
+                    <option value="eclipse">Eclipse</option>
+                    <option value="solarized_dark">Solarized Dark</optison>
+                        <option value="solarized_light">Solarized Light</option>
+                        <option value="twilight">Twilight</option>
+                        <option value="xcode">XCode</option>
+                        <option value="pastel_on_dark">Pastel on dark</option>
+						<option value="vibrant_ink">Vibrant Ink</option>
+                </select>
+            </div>
+            <div style="margin-top: 15px;">
+                <h2 style="left: 15px;top: 15px;display: inline">Editor font size</h2>
+                <button id="btn_decrease" onclick="if(document.getElementById('input_fontSize').value>7){    document.getElementById('input_fontSize').value=document.getElementById('input_fontSize').value - 1;}" style="left: 175px;top:20px;"></button>
+                <input readonly="true" style="left:182px;top:20px;" value=12 id="input_fontSize"></input>
+                <button id="btn_increase" onclick="if(document.getElementById('input_fontSize').value<40){    document.getElementById('input_fontSize').value=document.getElementById('input_fontSize').value - (-1);}" style="left: 190px;top:20px;"></button>
+            </div>
+            <div style="margin-top: 50px;"><a id="btn_save_setting">Save</a>
+            </div>
+        </div>
+    </div>
+    <div id="container">
+        <div id="working-area">
+            <div id="left-panel">
+                <div class="menu-bar">
+					
+						<span id="btn_open">
+						<input type="file" title="Open" id="input_open">
+						
+						</input>
+						</span>
+					<button title="Save" id="btn_save"></button>
+                    <button title="Compile" id="btn_compile"></button>
+					<button title="Setting" id="btn_setting"></button>
+                    <button title="Find" id="btn_find"></button>
+                    <button title="Replace" id="btn_replace"></button>
+                    <button title="Undo" id="btn_undo" disabled="true"></button>
+                    <button title="Redo" id="btn_redo" disabled="true"></button>
+					<button title="About" id="btn_about"></button>
+					<a href="https://itunes.apple.com/us/app/sass-editor/id1022477678?mt=12" target="_blank">
+						<button title="Mac version" id="btn_mac"></button>
+					</a>
+					
+                </div>
+                <div id="sass-editor"></div>
+            </div>
+            <div id="dragger"></div>
+            <div id="right-panel">
+                <div class="menu-bar">
+                    <button title="CSS" id="btn_css_output">CSS</button>
+                    <button title="Find (Cmd-F)" id="btn_find_right"></button>
+                    <button title="Save CSS" id="btn_save_right"></button>
+                </div>
+                <div id="css-editor"></div>
+            </div>
+        </div>
+        <div id="console-area">
+            <div id="title-bar">
+                <button title="clear console" id="btn_close_console" onclick="document.getElementById('console-output').value='';"></button>
+            </div>
+            <div id="console-log">
+                <textarea readonly=true id="console-output"></textarea>
+            </div>
+        </div>
+    </div>
+	<div id="about-overlay-view">
+		<div id="about-detail-view">
+			<h1 style="display:inline">About Sass Editor.xyz</h1>
+			<button id="btn_close_about" title="Close" style="left: 340px;top:-15px;"></button>
+			<p>An online Sass editor develop by Bao Nguyen. Many thanks to the following awesome projects:<p>
+			<ul>
+				<li><a href="https://github.com/medialize/sass.js" target="_blank">sass.js.&nbsp;</a>The pure JavaScript implementation of libsass.</li>
+				<li><a href="https://ace.c9.io/#nav=about" target="_blank">Ace.&nbsp;</a>The high performance code editor for the web.</li>
+				<li>Awesome icons by <a href="http://www.freepik.com/" target="_blank">Freepik</a></li>
+			</ul>
+			<p>If you have any suggestion or bug report, please send it to 
+			<a href="https://docs.google.com/forms/d/1xuCNFPfqEK_tqpv0RwAb6O5jk0-Afonhu0_t_K1_dmY/viewform?usp=send_form" target="_blank">me</a>. I'll reply as soon as I can.</p>
+			<p>If you find this app helpful, please share it to your friend.</p>
+			<div class="ssk-group">
+				<a href="" class="ssk ssk-facebook"></a>
+				<a href="" class="ssk ssk-twitter"></a>
+				<a href="" class="ssk ssk-google-plus"></a>
+				<a href="" class="ssk ssk-pinterest"></a>
+				<a href="" class="ssk ssk-tumblr"></a>
+			</div>
+			<p style="display:inline">Or support me by making a small donation</p>
+			<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WGV6U76ZYWEX2" target="_blank">
+				<img src="content/img/donate.png" style="height:35px;"/> 
+			</a>
+			<p style="font-size:medium;text-align:right;margin-top:20px;">Make with <span style="color:#E74C3C">&hearts;</span> and <span>&#9749;</span></p>
+		</div>
+	</div>
+    <script src="content/libsass/sass.js"></script>
+    <script>
+        var sass = new Sass();
+    </script>
+    <script src="content/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="content/app.js"></script>
+    <script type="text/javascript" src="content/setting.js"></script>
+	<script type="text/javascript">
+		window.onbeforeunload = function () {
+			if(typeof(Storage) !== 'undefined')
+			{
+				localStorage.setItem('savedSCSS', sass_editor.getValue());
+			}
+			return;
+		};
+	</script>
+	<script src="content/Blob.js" type="text/javascript" ></script>
+	<script src="content/FileSaver.min.js" type="text/javascript" ></script>
+	<script src="content/sharekit/js/social-share-kit.min.js" type="text/javascript" ></script>
+	<script type="text/javascript">
+	var linkElement = document.createElement("link");
+	linkElement.rel = "stylesheet";
+	linkElement.href = "content/sharekit/css/social-share-kit.css";
+
+	document.head.appendChild(linkElement);
+		SocialShareKit.init({
+			url: 'http://sasseditor.xyz'
+		});
+	</script>
+</body>
+
+</html>
