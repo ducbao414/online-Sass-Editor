@@ -1,5 +1,6 @@
 # Online Sass Editor
-A Sass editor and Sass compiler right on your browser
+A Sass editor and Sass compiler right on your browser.
+
 Many thanks for the following awesome projects:
 
 - [sass.js](https://github.com/medialize/sass.js). The pure JavaScript implementation of libsass.
